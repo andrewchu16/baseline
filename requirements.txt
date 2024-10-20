@@ -1,0 +1,5 @@
+numpy
+python-dotenv
+mne
+PyWavelets
+scipy
