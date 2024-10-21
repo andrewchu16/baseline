@@ -5,6 +5,9 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontFamily: {
+      'sans': ['Rethink Sans', 'system-ui']
+    },
     extend: {},
   },
   plugins: [],
