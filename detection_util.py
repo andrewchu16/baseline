@@ -5,11 +5,15 @@ import pywt
 from typing import Tuple, List
 from scipy.spatial.distance import mahalanobis
 
-def read_eeg_data(edf_file_path: str, sfreq=256.) -> mne.io.Raw:
+def read_eeg_data(file_path: str, sfreq=256.) -> mne.io.Raw:
     """
-    Reads EEG data from an EDF file, returns the data as a (channels, time samples) array.
+    Reads EEG data from an EDF or FIF file, returns the data as a (channels, time samples) array.
     """
-    raw = mne.io.read_raw_edf(edf_file_path, preload=True)
+    raw = None
+    if file_path.endswith('.edf'):
+        raw = mne.io.read_raw_edf(file_path, preload=True)
+    else:
+        raw = mne.io.read_raw_fif(file_path, preload=True)
     
     montage = mne.channels.make_standard_montage('standard_1020')
     eeg_channels = ['Cz', 'Fp1', 'F7', 'P3', 'O1', 'Pz', 'O2', 'P4', 'F8', 'Fp2']

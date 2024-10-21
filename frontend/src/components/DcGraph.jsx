@@ -69,12 +69,13 @@ function DcGraph() {
 
   return (
     <div className="bg-sky-200 rounded-lg p-2">
+      <h2>Combined Deviation</h2>
       <BarChart width={730} height={250} data={data}>
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
+        <XAxis dataKey="name" tick={false} />
         <YAxis />
         <Tooltip />
-        <Bar dataKey="dc" fill="#8884d8" />
+        <Bar dataKey="dc" fill="#8884d8" barSize={"10%"}/>
         <ReferenceLine y={threshold} stroke="red" />
       </BarChart>
     </div>

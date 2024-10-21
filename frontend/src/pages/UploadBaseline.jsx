@@ -47,7 +47,7 @@ function UploadBaseline() {
       </aside>
       <main className="h-screen flex-grow gap-2 p-3">
         <h1>Record Baseline</h1>
-        <input type="file" onChange={handleFileChange} accept=".edf" />
+        <input type="file" onChange={handleFileChange} accept=".edf, .fif" />
         <button onClick={handleFileUpload}>Upload</button>
       </main>
     </div>

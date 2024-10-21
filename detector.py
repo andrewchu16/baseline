@@ -39,7 +39,7 @@ class Detector:
             dc += combined_deviation(alpha_rhythms[:, i], theta_rhythms[:, i], self.base_mean_alpha, self.base_cov_alpha, self.base_mean_theta, self.base_cov_theta, self.sigma)
         dc /= alpha_rhythms.shape[1]
         
-        self.threshold = dc + 0.3
+        self.threshold = dc + 0.15
         
     def process(self, edf_file_name: str):
         """
