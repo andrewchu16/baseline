@@ -109,3 +109,12 @@ async def get_status():
         "initialized": detector.check_initialized(),
         "proceessed": detector.check_is_processed()
     }
+    
+@app.get("/fatigue_status")
+async def get_fatigue_status():
+    """
+    Get the current fatigue status.
+    """
+    return {"dc": detector.get_dc(),
+            "threshold": threshold,
+            "fatigue": (detector.get_dc() > threshold)}
