@@ -14,7 +14,8 @@ def read_eeg_data(edf_file_path: str, sfreq=256.) -> mne.io.Raw:
     montage = mne.channels.make_standard_montage('standard_1020')
     eeg_channels = ['Cz', 'Fp1', 'F7', 'P3', 'O1', 'Pz', 'O2', 'P4', 'F8', 'Fp2']
 
-    raw.pick(eeg_channels)
+    # raw.pick(eeg_channels)
+    raw.pick(["Oz", "Cz", "Pz"])
     raw.set_montage(montage)
     
     raw.resample(sfreq)
@@ -38,7 +39,7 @@ def preprocess_eeg(raw: mne.io.Raw) -> mne.io.Raw:
     raw.del_proj()
     
     # Fit ICA to the raw EEG data
-    ica = ICA(n_components=10, random_state=97)
+    ica = ICA(n_components=len(raw.info["ch_names"]), random_state=97)
     ica.fit(raw)
     
     # Apply ICA to remove artifacts
