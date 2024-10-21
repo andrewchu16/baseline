@@ -2,33 +2,34 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function FatigueStatus() {
-    const [dc, setDc] = useState(0);
-    const [threshold, setThreshold] = useState(0);
-    const [fatigue, setFatigue] = useState(false);
+  const [dc, setDc] = useState(0);
+  const [threshold, setThreshold] = useState(0);
+  const [fatigue, setFatigue] = useState(false);
 
-    const fetchThreshold = async () => {
-        try {
-            const response = await axios.get("/fatigue_status");
-            setThreshold(response.data.threshold);
-            setDc(response.data.dc);
-            setFatigue(response.data.fatigue);
-        } catch (err) {
-            console.error("Error fetching threshold:", err);
-        }
-    };
+  const fetchFatigueStatus = async () => {
+    try {
+      const response = await axios.get("http://127.0.0.1:8000/fatigue_status");
+      setThreshold(response.data.threshold);
+      setDc(response.data.dc);
+      setFatigue(response.data.fatigue);
+      console.log(response.data);
+    } catch (err) {
+      console.error("Error fetching fatigue status:", err);
+    }
+  };
 
-    useEffect(() => {
-        fetchThreshold();
-    }, []);
+  useEffect(() => {
+    fetchFatigueStatus();
+  }, []);
 
-    return (
-        <div>
-            <h2>Fatigue Status</h2>
-            <p>Threshold: {threshold}</p>
-            <p>DC: {dc}</p>
-            <p>Fatigue: {fatigue ? "Yes" : "No"}</p>
-        </div>
-    )
+  return (
+    <div>
+      <h2>Fatigue Status</h2>
+      <p>Threshold: {threshold}</p>
+      <p>DC: {dc}</p>
+      <p>Fatigue: {fatigue ? "Yes" : "No"}</p>
+    </div>
+  );
 }
 
 function Status() {
@@ -64,7 +65,7 @@ function Status() {
           <p>Processed: {processed ? "Yes" : "No"}</p>
         </>
       )}
-      {(initialized && processed) ?? <FatigueStatus />}
+      {initialized && processed ? <FatigueStatus /> : ""}
     </div>
   );
 }

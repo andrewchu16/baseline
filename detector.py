@@ -14,7 +14,7 @@ class Detector:
         
         self.alpha_rhythms: np.ndarray = None
         self.theta_rhythms: np.ndarray = None
-        self.dc = None
+        self.dc = 0.
         
         self.sigma = 0.5
         
@@ -83,7 +83,7 @@ class Detector:
             dc = combined_deviation(self.alpha_rhythms[:, i], self.theta_rhythms[:, i], self.base_mean_alpha, self.base_cov_alpha, self.base_mean_theta, self.base_cov_theta)
             dcs.append(dc)
             
-        self.dc = np.mean(dcs)
+        self.dc = float(np.mean(dcs))
         
         return self.dc > self.threshold
     

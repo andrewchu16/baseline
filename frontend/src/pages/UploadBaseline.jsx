@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet";
 import axios from "axios";
 import { useState } from "react";
+import Navbar from "../components/Navbar";
 
 function UploadBaseline() {
   const [file, setFile] = useState(null);
@@ -19,11 +20,15 @@ function UploadBaseline() {
     formData.append("file", file);
 
     try {
-      const response = await axios.post("http://127.0.0.1:8000/set_baseline", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axios.post(
+        "http://127.0.0.1:8000/set_baseline",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       alert("File uploaded successfully: " + response.data.status);
     } catch (error) {
@@ -33,13 +38,18 @@ function UploadBaseline() {
   };
 
   return (
-    <div>
+    <div className="h-screen w-screen flex">
       <Helmet>
-        <title>Baseline | Upload Baseline</title>
+        <title>Baseline | Record Baseline</title>
       </Helmet>
-      <h1>Upload Baseline</h1>
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={handleFileUpload}>Upload</button>
+      <aside className="h-screen w-52 p-3">
+        <Navbar />
+      </aside>
+      <main className="h-screen flex-grow gap-2 p-3">
+        <h1>Record Baseline</h1>
+        <input type="file" onChange={handleFileChange} />
+        <button onClick={handleFileUpload}>Upload</button>
+      </main>
     </div>
   );
 }

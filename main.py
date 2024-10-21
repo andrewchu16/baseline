@@ -9,6 +9,7 @@ app = FastAPI()
 origins = [
     "http://localhost:5173",  # React frontend
     "http://127.0.0.1:3000",
+    "http://127.0.0.1:8000",
 ]
 
 app.add_middleware(
@@ -60,6 +61,7 @@ async def process(file: UploadFile = File(...)):
     
     # Process the EEG file
     detector.process(file_location)
+    detector.detect_fatigue()
     
     dcs.append(detector.get_dc())
     
@@ -73,14 +75,14 @@ async def get_alpha_rhythms():
     """
     Get the extracted alpha rhythms.
     """
-    return {"alpha_rhythms": detector.get_alpha_rhythms()}
+    return {"alpha_rhythms": detector.get_alpha_rhythms().tolist()}
 
 @app.get("/theta_rhythms")
 async def get_theta_rhythms():
     """
     Get the extracted theta rhythms.
     """
-    return {"theta_rhythms": detector.get_theta_rhythms()}
+    return {"theta_rhythms": detector.get_theta_rhythms().tolist()}
 
 @app.get("/dcs")
 async def get_dcs():
@@ -111,6 +113,7 @@ async def get_fatigue_status():
     """
     Get the current fatigue status.
     """
-    return {"dc": detector.get_dc(),
-            "threshold": detector.get_threshold(),
-            "fatigue": (detector.get_dc() > detector.get_threshold())}
+    is_fatigued = bool(detector.get_dc() > detector.get_threshold())
+    return {"dc": float(detector.get_dc()),
+            "threshold": float(detector.get_threshold()),
+            "fatigue": is_fatigued}
