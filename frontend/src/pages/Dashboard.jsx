@@ -12,10 +12,10 @@ function Dashboard() {
       <Helmet>
         <title>Baseline | Dashboard</title>
       </Helmet>
-      <aside className="h-screen w-44 bg-red-50">
+      <aside className="h-screen w-52 p-3">
         <Navbar />
       </aside>
-      <main className="h-screen flex-grow bg-red-100 grid grid-cols-2 grid-rows-2 p-4">
+      <main className="h-screen flex-grow grid grid-cols-2 grid-rows-2 gap-2 p-3">
         <Status />
         <AlphaRhythmGraph />
         <ThetaRhythmGraph />

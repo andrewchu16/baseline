@@ -5,7 +5,7 @@ function DcGraph({ data }) {
   
   
     return (
-      <div>
+      <div className="bg-sky-200 rounded-lg p-2">
       dc graph
       </div>
     )

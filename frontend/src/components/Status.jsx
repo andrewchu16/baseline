@@ -53,7 +53,7 @@ function Status() {
   }, []);
 
   return (
-    <div>
+    <div className="bg-sky-200 rounded-lg p-2">
       <h1>My Status</h1>
       {error ? (
         <p>{error}</p>
