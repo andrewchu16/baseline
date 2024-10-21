@@ -68,7 +68,7 @@ function DcGraph() {
   }, []);
 
   return (
-    <div className="bg-sky-200 rounded-lg p-2">
+    <div className="bg-neutral-100 rounded-lg p-2 drop-shadow-sm">
       <h2>Combined Deviation</h2>
       <BarChart width={730} height={250} data={data}>
         <CartesianGrid strokeDasharray="3 3" />

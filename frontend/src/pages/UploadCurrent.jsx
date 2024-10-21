@@ -2,9 +2,27 @@ import { Helmet } from "react-helmet";
 import axios from "axios";
 import { useState } from "react";
 import Navbar from "../components/Navbar";
+import { useEffect } from "react";
 
 function UploadBaseline() {
   const [file, setFile] = useState(null);
+
+  useEffect(() => {
+    const element = document.getElementById('current');
+    
+    // Add class when component mounts
+    if (element) {
+      element.classList.add('active');
+    }
+
+    // Cleanup: Remove class when component unmounts
+    return () => {
+      if (element) {
+        element.classList.remove('active');
+      }
+    };
+  }, []); 
+
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);

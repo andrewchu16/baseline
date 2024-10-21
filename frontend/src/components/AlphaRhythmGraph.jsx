@@ -57,7 +57,7 @@ function AlphaRhythmGraph() {
   }, []);
 
   return (
-    <div className="bg-sky-200 rounded-lg p-2 overflow-clip">
+    <div className="bg-neutral-100 rounded-lg p-2 overflow-clip drop-shadow-sm">
       alpha rhythm graph
       {error ? <p>{error}</p> : null}
       {data ? (

@@ -1,23 +1,24 @@
 function Navbar() {
   return (
-    <nav className="flex flex-col h-full w-full p-2 rounded-lg bg-sky-300">
-      <h2>Menu</h2>
-      <div className="flex-grow">
-        <a href="/dashboard" id="dashboard">
+    <nav className="flex flex-col h-full w-full p-4 rounded-lg bg-neutral-100 drop-shadow-sm">
+      <h2 className="font-bold text-2xl mb-4">Menu</h2>
+      <div className="flex-grow flex flex-col gap-2">
+        <a href="/dashboard" id="dashboard" className="hover:font-bold">
           <p>Dashboard</p>
         </a>
-        <a href="/upload-baseline" id="baseline">
+        <a href="/upload-baseline" id="baseline" className="hover:font-bold">
           <p>Record Baseline</p>
         </a>
-        <a href="/upload-current" id="current">
+        <a href="/upload-current" id="current" className="hover:font-bold">
           <p>Record Activity</p>
         </a>
       </div>
       <div className="flex flex-col items-center pb-3">
-        <a href="/">
-          <button className="py-3 px-4 hover:text-blue-800 transition-colors rounded-lg bg-white">
-            Disconnect
-          </button>
+        <a
+          href="/"
+          className="hover:text-blue-600 text-blue-800 transition-colors hover:font-bold text-lg rounded-lg drop-shadow-md"
+        >
+          Disconnect
         </a>
       </div>
     </nav>
