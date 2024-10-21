@@ -1,12 +1,24 @@
 from fastapi import FastAPI, UploadFile, File
+from fastapi.middleware.cors import CORSMiddleware
 from detector import Detector
 import numpy as np
 import os
 
 app = FastAPI()
 
-alpha_rhythms = []
-theta_rhythms = []
+origins = [
+    "http://localhost:5173",  # React frontend
+    "http://127.0.0.1:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 dcs = []
 threshold = 0
 
@@ -15,7 +27,7 @@ detector = Detector()
 
 @app.get("/")
 async def root():
-    return {"message": "EEG Fatigue Detection API"}
+    return {"message": "Baseline API"}
 
 @app.post("/set_baseline")
 async def set_baseline(file: UploadFile = File(...)):
@@ -53,8 +65,6 @@ async def process(file: UploadFile = File(...)):
     # Process the EEG file
     detector.process(file_location)
     
-    alpha_rhythms.append(detector.get_alpha_rhythms())
-    theta_rhythms.append(detector.get_theta_rhythms())
     dcs.append(detector.get_dc())
     
     # Remove the temporary file after processing
@@ -67,14 +77,14 @@ async def get_alpha_rhythms():
     """
     Get the extracted alpha rhythms.
     """
-    return {"alpha_rhythms": alpha_rhythms}
+    return {"alpha_rhythms": detector.get_alpha_rhythms()}
 
 @app.get("/theta_rhythms")
 async def get_theta_rhythms():
     """
     Get the extracted theta rhythms.
     """
-    return {"theta_rhythms": theta_rhythms}
+    return {"theta_rhythms": detector.get_theta_rhythms()}
 
 @app.get("/dcs")
 async def get_dcs():
@@ -89,3 +99,13 @@ async def get_threshold():
     Get the current fatigue detection threshold.
     """
     return {"threshold": threshold}
+
+@app.get("/status")
+async def get_status():
+    """
+    Get the current application status.
+    """
+    return {
+        "initialized": detector.check_initialized(),
+        "proceessed": detector.check_is_processed()
+    }
