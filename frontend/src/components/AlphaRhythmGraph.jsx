@@ -57,38 +57,40 @@ function AlphaRhythmGraph() {
   }, []);
 
   return (
-    <div className="bg-neutral-100 rounded-lg p-2 overflow-clip drop-shadow-sm">
-      alpha rhythm graph
+    <div className="bg-neutral-100 rounded-lg p-4 overflow-clip drop-shadow-sm flex flex-col">
+      <h2 className="font-bold text-xl mb-2">Alpha Rhythm</h2>
       {error ? <p>{error}</p> : null}
       {data ? (
-        <ResponsiveContainer width="100%" height="100%">
-          <LineChart
-            data={data}
-            margin={{
-              top: 5,
-              bottom: 5,
-              left: 5,
-              right: 5,
-            }}
-          >
-            <XAxis dataKey="name" tick={false} />
-            <YAxis
-              tickFormatter={(value) => value.toExponential(2)}
-              tick={false}
-              width={1}
-            />
-            <Tooltip active={false} />
-            <ReferenceLine y={0} stroke="#000" />
-            <Line
-              type="monotone"
-              dataKey="alpha"
-              stroke="#8884d8"
-              dot={false}
-              animationDuration={2000}
-              isAnimationActive={true}
-            />
-          </LineChart>
-        </ResponsiveContainer>
+        <div className="w-full flex-grow">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart
+              data={data}
+              margin={{
+                top: 5,
+                bottom: 5,
+                left: 5,
+                right: 5,
+              }}
+            >
+              <XAxis dataKey="name" tick={false} />
+              <YAxis
+                tickFormatter={(value) => value.toExponential(2)}
+                tick={false}
+                width={1}
+              />
+              <Tooltip />
+              <ReferenceLine y={0} stroke="#000" />
+              <Line
+                type="monotone"
+                dataKey="alpha"
+                stroke="#8884d8"
+                dot={false}
+                animationDuration={2000}
+                isAnimationActive={true}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
       ) : (
         <p>No data to show.</p>
       )}

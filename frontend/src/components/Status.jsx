@@ -24,10 +24,19 @@ function FatigueStatus() {
 
   return (
     <div>
-      <h2>Fatigue Status</h2>
-      <p>Threshold: {threshold}</p>
-      <p>DC: {dc}</p>
-      <p>Fatigue: {fatigue ? "Yes" : "No"}</p>
+      <h3 className="font-bold text-lg mb-1">Fatigue Level</h3>
+      <p>
+        <span className="font-bold">Computed Fatigue Threshold: </span>
+        {threshold.toPrecision(4)}
+      </p>
+      <p>
+        <span className="font-bold">DC: </span>
+        {dc.toPrecision(4)}
+      </p>
+      <p>
+        <span className="font-bold">Fatigue: </span>
+        {fatigue ? "High fatigue levels reached. You will be signed off duty shortly." : "Fatigue levels normal. You may continue working."}
+      </p>
     </div>
   );
 }
@@ -55,16 +64,38 @@ function Status() {
   }, []);
 
   return (
-    <div className="bg-neutral-100 rounded-lg p-2 drop-shadow-sm">
-      <h1>My Status</h1>
-      {error ? (
-        <p>{error}</p>
-      ) : (
-        <>
-          <p>Initialized: {initialized ? "Yes" : "No"}</p>
-          <p>Processed: {processed ? "Yes" : "No"}</p>
-        </>
-      )}
+    <div className="bg-neutral-100 rounded-lg p-4 drop-shadow-sm">
+      <h2 className="font-bold text-xl mb-2">Status and Vitals</h2>
+      <h3 className="font-bold text-lg mb-1">Application Status</h3>
+      <div className="flex gap-3 flex-wrap mb-3">
+        {initialized ? (
+          <div className="bg-green-200 px-3 py-2 rounded-2xl text-green-800 font-bold hover:drop-shadow-md transition-shadow hover:cursor-pointer drop-shadow-sm">
+            Ready
+          </div>
+        ) : (
+          <div className="bg-red-200 px-3 py-2 rounded-2xl text-red-800 font-bold d hover:drop-shadow-md transition-shadow hover:cursor-pointerrop-shadow-sm">
+            Uninitialized
+          </div>
+        )}
+        {processed ? (
+          <div className="bg-green-200 px-3 py-2 rounded-2xl text-green-800 font-bold hover:drop-shadow-md transition-shadow hover:cursor-pointer drop-shadow-sm">
+            Recording
+          </div>
+        ) : (
+          <div className="bg-neutral-200 px-3 py-2 rounded-2xl text-neutral-800 font-bold d hover:drop-shadow-md transition-shadow hover:cursor-pointerrop-shadow-sm">
+            Not Recording
+          </div>
+        )}
+        {!error ? (
+          <div className="bg-neutral-200 px-3 py-2 rounded-2xl text-neutral-800 font-bold hover:drop-shadow-md transition-shadow hover:cursor-pointer drop-shadow-sm">
+            No Errors
+          </div>
+        ) : (
+          <div className="bg-red-200 px-3 py-2 rounded-2xl text-red-800 font-bold d hover:drop-shadow-md transition-shadow hover:cursor-pointerrop-shadow-sm">
+            {"Error (check console)"}
+          </div>
+        )}
+      </div>
       {initialized && processed ? <FatigueStatus /> : ""}
     </div>
   );

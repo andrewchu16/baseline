@@ -68,16 +68,24 @@ function DcGraph() {
   }, []);
 
   return (
-    <div className="bg-neutral-100 rounded-lg p-2 drop-shadow-sm">
-      <h2>Combined Deviation</h2>
-      <BarChart width={730} height={250} data={data}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" tick={false} />
-        <YAxis />
-        <Tooltip />
-        <Bar dataKey="dc" fill="#8884d8" barSize={"10%"}/>
-        <ReferenceLine y={threshold} stroke="red" />
-      </BarChart>
+    <div className="bg-neutral-100 rounded-lg p-4 overflow-clip drop-shadow-sm flex flex-col">
+      <h2 className="font-bold text-xl mb-2">Combined Deviation</h2>
+      {data ? (
+        <div className="w-full flex-grow">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart width={730} height={250} data={data}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" tick={false} />
+              <YAxis />
+              <Tooltip />
+              <Bar dataKey="dc" fill="#8884d8" barSize={"9%"} />
+              <ReferenceLine y={threshold} stroke="red" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      ) : (
+        <p>No data to show.</p>
+      )}
     </div>
   );
 }

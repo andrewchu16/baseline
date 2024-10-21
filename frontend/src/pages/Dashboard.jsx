@@ -32,7 +32,7 @@ function Dashboard() {
       <aside className="h-screen w-52 p-4 pr-2">
         <Navbar />
       </aside>
-      <main className="h-screen flex-grow grid grid-cols-2 grid-rows-2 gap-2 pl-2 p-4">
+      <main className="h-screen flex-grow grid grid-cols-2 grid-rows-2 gap-3 pl-2 p-4">
         <Status />
         <AlphaRhythmGraph />
         <ThetaRhythmGraph />
