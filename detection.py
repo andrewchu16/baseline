@@ -79,7 +79,7 @@ if __name__ == "__main__":
     import os
 
     # Root directory containing nested folders
-    root_dir = './hardware-check/subj_1/session_02'
+    root_dir = './hardware-check/subj_1/session_01'
     
     avg_dcs = []
 
@@ -92,9 +92,8 @@ if __name__ == "__main__":
                 raw_data = read_eeg_data(edf_path)
                 clean_data = preprocess_eeg(raw_data)
                 
-                dcs = calculate_dcs_from_baseline(mean_alpha, mean_theta, cov_alpha, cov_theta,  clean_data)
+                dcs = calculate_dcs_from_baseline(mean_alpha, mean_theta, cov_alpha, cov_theta, clean_data)
                 
-                print(np.mean(dcs))
-                avg_dcs.append(np.mean(dcs))
+                avg_dcs.append(round(np.mean(dcs), 4))
                 
     print(avg_dcs)
