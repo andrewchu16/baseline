@@ -42,6 +42,7 @@ function Status() {
       setInitialized(response.data.initialized);
       setProcessed(response.data.processed);
       setError(null);
+      console.log(response.data);
     } catch (err) {
       setError("Failed to fetch EEG status.");
       console.error("Error fetching status:", err);

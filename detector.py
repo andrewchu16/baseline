@@ -16,6 +16,8 @@ class Detector:
         self.theta_rhythms: np.ndarray = None
         self.dc = None
         
+        self.sigma = 0.5
+        
     def set_baseline(self, edf_file_name: str):
         """
         Set the baseline for the detector using the given EEG data.
@@ -55,6 +57,7 @@ class Detector:
         """
         if self.base_cov_theta is None or self.base_mean_alpha is None or self.base_mean_theta is None or self.base_cov_alpha is None:
             return False
+        return True
         
     def check_is_processed(self):
         """
@@ -62,6 +65,7 @@ class Detector:
         """
         if self.alpha_rhythms is None or self.theta_rhythms is None:
             return False
+        return True
         
     def detect_fatigue(self):
         """

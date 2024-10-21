@@ -1,4 +1,3 @@
-import FileUpload from "../components/FileUpload";
 import { Helmet } from "react-helmet";
 
 function UploadCurrent() {
