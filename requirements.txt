@@ -3,3 +3,5 @@ python-dotenv
 mne
 PyWavelets
 scipy
+matplotlib
+fastapi

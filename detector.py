@@ -14,6 +14,7 @@ class Detector:
         
         self.alpha_rhythms: np.ndarray = None
         self.theta_rhythms: np.ndarray = None
+        self.dc = None
         
     def set_baseline(self, edf_file_name: str):
         """
@@ -78,9 +79,9 @@ class Detector:
             dc = combined_deviation(self.alpha_rhythms[:, i], self.theta_rhythms[:, i], self.base_mean_alpha, self.base_cov_alpha, self.base_mean_theta, self.base_cov_theta)
             dcs.append(dc)
             
-        mean_dc = np.mean(dcs)
+        self.dc = np.mean(dcs)
         
-        return mean_dc > self.threshold
+        return self.dc > self.threshold
     
     def get_alpha_rhythms(self):
         """
@@ -100,3 +101,17 @@ class Detector:
         
         return self.theta_rhythms
     
+    def get_dc(self):
+        """
+        Get the combined deviation (DC).
+        """
+        if not self.check_is_processed():
+            raise ValueError("Data is not processed.")
+        
+        return self.dc
+    
+    def get_threshold(self):
+        """
+        Get the current fatigue detection threshold.
+        """
+        return self.threshold
