@@ -1,0 +1,1 @@
+This folder is preserved for storing temporary files uploaded to the server.
