@@ -20,7 +20,6 @@ app.add_middleware(
 )
 
 dcs = []
-threshold = 0
 
 # Initialize the detector object
 detector = Detector()
@@ -34,7 +33,6 @@ async def set_baseline(file: UploadFile = File(...)):
     """
     Set the baseline for the detector using the given EEG data.
     """
-    global threshold
     file_location = f"files/{file.filename}"
     
     # Save the uploaded file temporarily
@@ -43,8 +41,6 @@ async def set_baseline(file: UploadFile = File(...)):
     
     # Set the baseline using the uploaded file
     detector.set_baseline(file_location)
-    
-    threshold = detector.get_threshold()
     
     # Remove the temporary file after processing
     os.remove(file_location)
@@ -98,7 +94,7 @@ async def get_threshold():
     """
     Get the current fatigue detection threshold.
     """
-    return {"threshold": threshold}
+    return {"threshold": detector.get_threshold()}
 
 @app.get("/status")
 async def get_status():
@@ -107,7 +103,7 @@ async def get_status():
     """
     return {
         "initialized": detector.check_initialized(),
-        "proceessed": detector.check_is_processed()
+        "processed": detector.check_is_processed()
     }
     
 @app.get("/fatigue_status")
@@ -116,5 +112,5 @@ async def get_fatigue_status():
     Get the current fatigue status.
     """
     return {"dc": detector.get_dc(),
-            "threshold": threshold,
-            "fatigue": (detector.get_dc() > threshold)}
+            "threshold": detector.get_threshold(),
+            "fatigue": (detector.get_dc() > detector.get_threshold())}
