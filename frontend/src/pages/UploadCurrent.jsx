@@ -96,7 +96,7 @@ function UploadBaseline() {
               className="hover:text-neutral-600 text-neutral-800 transition-colors hover:font-bold text-xl rounded-lg drop-shadow-md"
               onClick={handleFileUpload}
             >
-              Record
+              Record Activity
             </button>
           </div>
         </div>
